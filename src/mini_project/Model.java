@@ -1,9 +1,12 @@
 package mini_project;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.sound.sampled.*;
-import java.sql.*;
 import java.util.concurrent.TimeUnit;
 
 public class Model {
@@ -16,11 +19,12 @@ public class Model {
     private Connection conn;
     private PreparedStatement psmt;
     private ResultSet rs;
+    private DatabaseManager dbManager;
 
     // 내부 클래스로 User 데이터 구조 정의
     public static class User {
-        private final String id;
-        private final String nick;
+        private String id;
+        private String nick;
         private int score;
 
         public User(String id, String nick, int score) {
@@ -32,13 +36,12 @@ public class Model {
         public String getId() { return id; }
         public String getNick() { return nick; }
         public int getScore() { return score; }
-        public void setScore(int score) { this.score = score; }
     }
 
     public Model() {
         currentUser = null;
         os = System.getProperty("os.name").toLowerCase();
-        connectDB();
+        dbManager = DatabaseManager.getInstance();
     }
 
     private void connectDB() {
@@ -53,7 +56,7 @@ public class Model {
     public boolean login(String id, String pw) {
         try {
             String query = "SELECT * FROM USERINFO WHERE ID = ? AND PW = ?";
-            psmt = conn.prepareStatement(query);
+            psmt = dbManager.prepareStatement(query);
             psmt.setString(1, id);
             psmt.setString(2, pw);
             rs = psmt.executeQuery();
@@ -79,7 +82,7 @@ public class Model {
             }
             
             String insertQuery = "INSERT INTO USERINFO (ID, PW, NICK, SCORE) VALUES (?, ?, ?, 0)";
-            psmt = conn.prepareStatement(insertQuery);
+            psmt = dbManager.prepareStatement(insertQuery);
             psmt.setString(1, id);
             psmt.setString(2, pw);
             psmt.setString(3, nick);
@@ -93,7 +96,7 @@ public class Model {
 
     private boolean isUserExists(String id) throws SQLException {
         String checkQuery = "SELECT COUNT(*) FROM USERINFO WHERE ID = ?";
-        psmt = conn.prepareStatement(checkQuery);
+        psmt = dbManager.prepareStatement(checkQuery);
         psmt.setString(1, id);
         rs = psmt.executeQuery();
         rs.next();
@@ -103,7 +106,7 @@ public class Model {
     public void updateScore(int score) {
         try {
             String getScoreQuery = "SELECT SCORE FROM USERINFO WHERE ID = ?";
-            psmt = conn.prepareStatement(getScoreQuery);
+            psmt = dbManager.prepareStatement(getScoreQuery);
             psmt.setString(1, currentUser);
             rs = psmt.executeQuery();
             
@@ -111,8 +114,10 @@ public class Model {
                 int currentScore = rs.getInt("SCORE");
                 int totalScore = currentScore + score;
                 
+                dbManager.closeResources(rs, psmt);
+                
                 String updateQuery = "UPDATE USERINFO SET SCORE = ? WHERE ID = ?";
-                psmt = conn.prepareStatement(updateQuery);
+                psmt = dbManager.prepareStatement(updateQuery);
                 psmt.setInt(1, totalScore);
                 psmt.setString(2, currentUser);
                 psmt.executeUpdate();
@@ -126,7 +131,7 @@ public class Model {
         ArrayList<User> ranking = new ArrayList<>();
         try {
             String query = "SELECT * FROM (SELECT ID, NICK, SCORE FROM USERINFO ORDER BY SCORE DESC) WHERE ROWNUM <= 10";
-            psmt = conn.prepareStatement(query);
+            psmt = dbManager.prepareStatement(query);
             rs = psmt.executeQuery();
             
             while (rs.next()) {
@@ -145,7 +150,7 @@ public class Model {
     public String getMusicTitle(String fileName) {
         try {
             String query = "SELECT TITLE FROM MUSIC WHERE ROUTE LIKE ?";
-            psmt = conn.prepareStatement(query);
+            psmt = dbManager.prepareStatement(query);
             psmt.setString(1, "%" + fileName + "%");
             rs = psmt.executeQuery();
             
@@ -155,24 +160,19 @@ public class Model {
         }
     }
 
+    /**
+     * 음악 파일을 재생하는 메인 메소드
+     * MP3 파일만 지원
+     * 
+     * @param filePath 재생할 음악 파일의 경로
+     * @param duration 재생 시간 (밀리초 단위)
+     * @throws RuntimeException 음악 재생 중 오류 발생시
+     */
     public void playMusic(String filePath, int duration) {
-        File musicFile = new File(filePath);
-        String extension = filePath.toLowerCase();
-        
-        try {
-            if (extension.endsWith(".mp3")) {
-                playMP3(filePath, duration);
-            } else if (extension.endsWith(".wav")) {
-                playWAV(musicFile, duration);
-            } else {
-                throw new IllegalArgumentException("지원하지 않는 파일 형식입니다.");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("음악 재생 중 오류가 발생했습니다: " + e.getMessage());
+        if (!filePath.toLowerCase().endsWith(".mp3")) {
+            throw new RuntimeException("MP3 파일만 지원합니다.");
         }
-    }
-
-    private void playMP3(String filePath, int duration) throws Exception {
+        
         Process process = null;
         try {
             ProcessBuilder pb = os.contains("mac") 
@@ -181,6 +181,8 @@ public class Model {
             
             process = pb.start();
             Thread.sleep(duration);
+        } catch (Exception e) {
+            throw new RuntimeException("음악 재생 실패: " + e.getMessage());
         } finally {
             if (process != null) {
                 process.destroy();
@@ -193,26 +195,6 @@ public class Model {
         }
     }
 
-    private void playWAV(File musicFile, int duration) throws Exception {
-        AudioInputStream audioStream = null;
-        Clip clip = null;
-        try {
-            audioStream = AudioSystem.getAudioInputStream(musicFile);
-            clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-            Thread.sleep(duration);
-        } finally {
-            if (clip != null) {
-                clip.stop();
-                clip.close();
-            }
-            if (audioStream != null) {
-                audioStream.close();
-            }
-        }
-    }
-
     public String getCurrentUser() {
         return currentUser;
     }
@@ -220,7 +202,7 @@ public class Model {
     public String getCurrentUserNick() {
         try {
             String query = "SELECT NICK FROM USERINFO WHERE ID = ?";
-            psmt = conn.prepareStatement(query);
+            psmt = dbManager.prepareStatement(query);
             psmt.setString(1, currentUser);
             rs = psmt.executeQuery();
             
