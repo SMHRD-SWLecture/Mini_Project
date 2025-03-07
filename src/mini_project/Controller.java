@@ -2,6 +2,7 @@ package mini_project;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Controller {
@@ -18,6 +19,18 @@ public class Controller {
     }
 
     public void start() {
+    	System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n"
+    			+ "┃                                                             ┃\r\n"
+    			+ "┃   █▀▄▀█ █░█ █▀ █ █▀▀   █▀█ █░█ █ ▀█   █▀▀ ▄▀█ █▀▄▀█ █▀▀     ┃\r\n"
+    			+ "┃   █░▀░█ █▄█ ▄█ █ █▄▄   ▀▀█ █▄█ █ █▄   █▄█ █▀█ █░▀░█ ██▄     ┃\r\n"
+    			+ "┃                                                             ┃\r\n"
+    			+ "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n"
+    			+ "      ♪        ♫        ♪        ♫        ♪        ♫        ♪");
+    	try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
         while (true) {
             try {
                 view.showMainMenu();
@@ -33,7 +46,24 @@ public class Controller {
                     case 1: login(); break;
                     case 2: register(); break;
                     case 3: 
-                        view.showMessage("프로그램을 종료합니다. 안녕히 가세요!");
+                    	System.out.println();
+                    	System.out.println();
+            	    	System.out.println();
+            	    	System.out.println();
+            	    	System.out.println();
+            	    	System.out.println();
+            	    	System.out.println();
+            	    	System.out.println();
+            	    	System.out.println();
+            	    	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            	    	System.out.println("                                               ");
+            	    	System.out.println("                                               ");
+            	    	 System.out.println("       █▀▀ █▀█ █▀█ █▀▄   █▄▄ █▄█ █▀▀ █");
+            	         System.out.println("       █▄█ █▄█ █▄█ █▄▀   █▄█ ░█░ ██▄ ▄");
+            	    	System.out.println("                                              ");
+            	    	System.out.println("                                               ");
+            	    	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            	    	System.out.println("    ♪       ♫       ♪       ♫       ♪       ♫   ");
                         return;
                     default:
                         view.showMessage("잘못된 선택입니다. 다시 시도해주세요.");
@@ -54,10 +84,59 @@ public class Controller {
         
         try {
             if (model.login(id, pw)) {
-                view.showMessage(model.getCurrentUserNick() + "님, 환영합니다!");
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+                System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+                System.out.println("                                                    ");
+                System.out.println("          █░█░█ █▀▀ █░░ █▀▀ █▀█ █▀▄▀█ █▀▀ █         ");
+                System.out.println("          ▀▄▀▄▀ ██▄ █▄▄ █▄▄ █▄█ █░▀░█ ██▄ ▄         ");
+                System.out.println("                                                    ");
+                System.out.printf("       ₊ ˚ ₊ .:･˚"+model.getCurrentUserNick()+"님, 환영합니다!"+"₊ ˚ ‧₊ .:･˚₊ *˚        %n");
+                System.out.println("                                                    ");
+                System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+                System.out.println("    ♪       ♫       ♪       ♫       ♪       ♫       ");
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	try {
+        			TimeUnit.SECONDS.sleep(1);
+        		} catch (InterruptedException e) {
+        			e.printStackTrace();
+        		}
                 gameMenu();
             } else {
-                view.showMessage("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println("┃                                                    ┃");
+                System.out.println("┃               █▀▀ ▄▀█ █ █░░ █▀▀ █▀▄ █              ┃");
+                System.out.println("┃               █▀░ █▀█ █ █▄▄ ██▄ █▄▀ ▄              ┃");
+                System.out.println("┃                                                    ┃");
+                System.out.println("┃            아이디 또는 비밀번호가 일치하지 않습니다            ┃");
+                System.out.println("┃                                                    ┃");
+                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+                System.out.println("    ♪       ♫       ♪       ♫       ♪       ♫       ");
+            	try {
+        			TimeUnit.SECONDS.sleep(1);
+        		} catch (InterruptedException e) {
+        			e.printStackTrace();
+        		}
             }
         } catch (Exception e) {
             view.showMessage("로그인 중 오류가 발생했습니다: " + e.getMessage());
@@ -75,9 +154,67 @@ public class Controller {
 
         try {
             if (model.register(id, pw, nick)) {
-                view.showMessage("회원가입이 완료되었습니다. 로그인해주세요.");
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            	System.out.println("┃                                                    ┃");
+            	System.out.println("┃              █▀ █░█ █▀▀ █▀▀ █▀▀ █▀ █▀              ┃");
+            	System.out.println("┃              ▄█ █▄█ █▄▄ █▄▄ ██▄ ▄█ ▄█              ┃");
+            	System.out.println("┃                                                    ┃");
+            	System.out.println("┃                 회원가입이 완료되었습니다!                 ┃");
+            	System.out.println("┃                                                    ┃");
+            	System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            	System.out.println("    ♪       ♫       ♪       ♫       ♪       ♫       ");
+                try {
+        			TimeUnit.SECONDS.sleep(1);
+        		} catch (InterruptedException e) {
+        			e.printStackTrace();
+        		}
             } else {
-                view.showMessage("이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.");
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+            	System.out.println();
+                System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println("┃                                                    ┃");
+                System.out.println("┃               █▀▀ ▄▀█ █ █░░ █▀▀ █▀▄ █              ┃");
+                System.out.println("┃               █▀░ █▀█ █ █▄▄ ██▄ █▄▀ ▄              ┃");
+                System.out.println("┃                                                    ┃");
+                System.out.println("┃                 이미 존재하는 아이디입니다                 ┃");
+                System.out.println("┃                                                    ┃");
+                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+                System.out.println("    ♪       ♫       ♪       ♫       ♪       ♫       ");
+                try {
+        			TimeUnit.SECONDS.sleep(1);
+        		} catch (InterruptedException e) {
+        			e.printStackTrace();
+        		}
             }
         } catch (Exception e) {
             view.showMessage("회원가입 중 오류가 발생했습니다: " + e.getMessage());
@@ -86,8 +223,34 @@ public class Controller {
 
     private void gameMenu() {
         while (true) {
+        	System.out.println();
+	    	System.out.println();
+	    	System.out.println();
+	    	System.out.println();
+	    	System.out.println();
+	    	System.out.println();
+	    	System.out.println();
+	    	System.out.println();
+	    	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	    	System.out.println("                                               ");
+	    	System.out.println("                                               ");
+	    	System.out.println("     █▀▀ ▄▀█ █▀▄▀█ █▀▀   █▀▄▀█ █▀▀ █▄░█ █░█  ");
+	    	System.out.println("     █▄█ █▀█ █░▀░█ ██▄   █░▀░█ ██▄ █░▀█ █▄█  ");
+	    	System.out.println("                                              ");
+	    	System.out.println("                                              ");
+	    	System.out.println("                                              ");
+	    	System.out.println("                  1. 게임시작                       ");
+	    	System.out.println("                  2. 랭킹                      ");
+	    	System.out.println("                  3. 로그아웃                         ");
+	    	System.out.println("                                               ");
+	    	System.out.println("                                               ");
+	    	System.out.println("                                               ");
+	    	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	    	System.out.println("    ♪       ♫       ♪       ♫       ♪       ♫   ");
+	    	System.out.print("선택:");
+
             try {
-                view.showGameMenu();
+//                view.showGameMenu();
                 int choice = Integer.parseInt(sc.nextLine().trim());
                 switch (choice) {
                     case 1: playGame(); break;
@@ -145,8 +308,7 @@ public class Controller {
 
                 while (retryCount >= 0 && !correct && gameRunning.get()) {
                     try {
-                        view.showGameStatus("음악을 재생합니다...");
-                        
+                        showMusicPlayingScreen();
                         Thread musicThread = new Thread(() -> {
                             try {
                                 gameManager.playMusic(finalMusicFile.getAbsolutePath(), gameChoice.playTime * 1000);
@@ -163,12 +325,43 @@ public class Controller {
                         if (!gameRunning.get()) break;
                         
                         if (gameManager.checkAnswer(userAnswer, correctTitle)) {
-                            view.showMessage("정답입니다! +" + gameChoice.score + "점");
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println("██████╗      ██████╗ ██████╗ ██████╗ ██████╗ ███████╗ ██████╗████████╗     ██████╗ ");
+                        	System.out.println("██╔═══██╗    ██╔════╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝    ██╔═══██╗");
+                        	System.out.println("██║   ██║    ██║     ██║   ██║██████╔╝██████╔╝█████╗  ██║        ██║       ██║   ██║");
+                        	System.out.println("██║   ██║    ██║     ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║        ██║       ██║   ██║");
+                        	System.out.println("╚██████╔╝    ╚██████╗╚██████╔╝██║  ██║██║  ██║███████╗╚██████╗   ██║       ╚██████╔╝");
+                        	System.out.println(" ╚═════╝      ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═╝        ╚═════╝ ");
+                            view.showMessage("                        정답입니다! +" + gameChoice.score + "점");
                             totalScore += gameChoice.score;
                             correct = true;
                         } else {
-                            view.showMessage("틀렸습니다!" + (retryCount > 0 ? " 다시 시도해보세요!" : ""));
-                            retryCount--;
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println();
+                        	System.out.println("██╗  ██╗    ██╗    ██╗██████╗  ██████╗ ███╗   ██╗ ██████╗     ██╗  ██╗");
+                        	System.out.println("╚██╗██╔╝    ██║    ██║██╔══██╗██╔═══██╗████╗  ██║██╔════╝     ╚██╗██╔╝");
+                        	System.out.println(" ╚███╔╝     ██║ █╗ ██║██████╔╝██║   ██║██╔██╗ ██║██║  ███╗     ╚███╔╝ ");
+                        	System.out.println(" ██╔██╗     ██║███╗██║██╔══██╗██║   ██║██║╚██╗██║██║   ██║     ██╔██╗ ");
+                        	System.out.println("██╔╝ ██╗    ╚███╔███╔╝██║  ██║╚██████╔╝██║ ╚████║╚██████╔╝    ██╔╝ ██╗");
+                        	System.out.println("╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═╝");
+                        	System.out.printf("                           남은 기회: %d회\n", retryCount);
+                        	retryCount--;
+                            try {
+                    			TimeUnit.SECONDS.sleep(1);
+                    		} catch (InterruptedException e) {
+                    			e.printStackTrace();
+                    		}
                         }
                     } catch (Exception e) {
                         retryCount--;
@@ -179,7 +372,7 @@ public class Controller {
                     view.showMessage("정답은 '" + correctTitle + "' 입니다.");
                 }
 
-                System.out.print("\n다음 문제로 넘어가시겠습니까? (y/n): ");
+                System.out.print("\n다음 문제로 넘어가시겠습니까? (Y/N): ");
                 if (!sc.nextLine().toLowerCase().startsWith("y")) {
                     gameRunning.set(false);
                 }
@@ -194,5 +387,29 @@ public class Controller {
 
     public static void main(String[] args) {
         new Controller().start();
+    }
+    public void showMusicPlayingScreen() {
+    	System.out.println();
+    	System.out.println();
+    	System.out.println();
+    	System.out.println();
+    	System.out.println();
+    	System.out.println();
+    	System.out.println();
+    	System.out.println();
+        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+        System.out.println("┃                                                    ┃");
+        System.out.println("┃     █▄░█ █▀█ █░█░█   █▀█ █░░ ▄▀█ █▄█ █ █▄░█ █▀▀    ┃");
+        System.out.println("┃     █░▀█ █▄█ ▀▄▀▄▀   █▀▀ █▄▄ █▀█ ░█░ █ █░▀█ █▄█    ┃");
+        System.out.println("┃                                                    ┃");
+        System.out.println("┃                                                    ┃");
+        System.out.println("┃                   ♫♪♫ ♪♫♪ ♫♪♫                      ┃");
+        System.out.println("┃                   ▶ 재생 중...                       ┃");
+        System.out.println("┃                                                    ┃");
+        System.out.println("┃                                                    ┃");
+        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 } 
