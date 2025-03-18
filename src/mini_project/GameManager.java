@@ -49,7 +49,7 @@ public class GameManager {
             });
             
             playerThread.start();
-            Thread.sleep(duration);
+            Thread.sleep(duration); // 정해진 시간만큼 음악 재생
             stopCurrentMusic();
             
         } catch (Exception e) {
